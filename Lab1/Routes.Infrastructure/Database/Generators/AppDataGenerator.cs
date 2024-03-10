@@ -24,7 +24,7 @@ public class AppDataGenerator
         var stopFaker = new Faker<StopEntity>()
             .UseSeed(DataGeneratorOptions.Seed)
             .RuleFor(s => s.Id, f => f.Random.Long())
-            .RuleFor(s => s.StopName, f => f.Address.City());
+            .RuleFor(s => s.StopName, f => f.Lorem.Paragraph());
 
         var routeFaker = new Faker<RouteEntity>()
             .UseSeed(DataGeneratorOptions.Seed)
