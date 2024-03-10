@@ -1,7 +1,7 @@
 ﻿namespace Routes.Infrastructure.Database.Generators;
 
-public abstract record DataGeneratorOptions
+public static class DataGeneratorOptions
 {
-    public int StopCount { get; init; } = 50;
-    public int Seed { get; init; } = 30;
+    public static int CityCount { get; } = 5;
+    public static int Seed { get; } = 30;
 }
