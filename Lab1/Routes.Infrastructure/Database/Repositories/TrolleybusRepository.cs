@@ -7,7 +7,7 @@ public class TrolleybusRepository(AppDbContext dbContext) : ITrolleybusRepositor
 {
     public TrolleybusEntity? GetTrolleybusWithLargestNumberRoutes()
     {
-        return dbContext.Trolleybuses.MaxBy(x => x.Routes);
+        return dbContext.Trolleybuses.MaxBy(x => x.Routes?.Count);
     }
 
     public List<int>? GetTrolleybusesInRoute(int routeId)

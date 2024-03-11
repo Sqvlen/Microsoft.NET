@@ -5,13 +5,13 @@ namespace Routes.Infrastructure.Database.Repositories;
 
 public class CityRepository(AppDbContext dbContext) : ICityRepository
 {
-    public List<CityEntity>? GetAll()
+    public IEnumerable<CityEntity>? GetAll()
     {
-        return (from cities in dbContext.Cities select cities) as List<CityEntity>;
+        return from cities in dbContext.Cities select cities;
     }
 
     public CityEntity? GetCityWithLargestNumberRoutes()
     {
-        return dbContext.Cities.MaxBy(x => x.Routes);
+        return dbContext.Cities.MaxBy(x => x.Routes?.Count);
     }
 }

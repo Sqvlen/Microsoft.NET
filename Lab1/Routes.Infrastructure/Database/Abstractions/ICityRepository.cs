@@ -4,6 +4,6 @@ namespace Routes.Infrastructure.Database.Abstractions;
 
 public interface ICityRepository
 {
-    List<CityEntity>? GetAll();
+    IEnumerable<CityEntity>? GetAll();
     CityEntity? GetCityWithLargestNumberRoutes();
 }
