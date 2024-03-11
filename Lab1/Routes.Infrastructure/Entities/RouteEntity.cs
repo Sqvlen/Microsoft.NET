@@ -9,9 +9,14 @@ public class RouteEntity : BaseEntity<long>
     [MaxLength(64)]
     [MinLength(2)]
     public required string Name { get; set; }
+
+    [Required]
+    public required int Number { get; set; }
     
-    public required StopEntity StartStopEntity { get; set; }
-    public required StopEntity EndStopEntity { get; set; }
+    public StopEntity? StartStopEntity { get; set; }
+    public StopEntity? EndStopEntity { get; set; }
     public List<TrolleybusEntity>? Trolleybuses { get; set; }
-    public required DateTimeOffset TravelTime { get; set; }
+    
+    [Required]
+    public required float TravelTime { get; set; }
 }

@@ -9,6 +9,4 @@ public class StopEntity : BaseEntity<long>
     [MaxLength(64)]
     [MinLength(2)]
     public required string StopName { get; set; }
-
-    public List<RouteEntity>? Routes { get; set; }
 }
