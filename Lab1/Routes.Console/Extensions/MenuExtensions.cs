@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Microsoft.Extensions.Primitives;
 using Routes.Infrastructure.Database.Abstractions;
 
 namespace Routes.RestApi.Extensions;

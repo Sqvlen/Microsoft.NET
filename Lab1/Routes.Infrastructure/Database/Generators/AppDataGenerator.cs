@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Routes.Infrastructure.Entities;
+﻿using Routes.Infrastructure.Entities;
 
 namespace Routes.Infrastructure.Database.Generators;
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Routes.Infrastructure.Database.Abstractions;
+﻿using Routes.Infrastructure.Database.Abstractions;
 using Routes.Infrastructure.Entities;
 using Routes.Infrastructure.Entities.Dtos;
 
@@ -80,12 +79,6 @@ public class RouteRepository(AppDbContext dbContext) : IRouteRepository
     public List<RouteEntity>? GetRoutesSortedByTravelTime()
     {
         return dbContext.Routes.OrderBy(x => x.TravelTime).ToList();
-    }
-
-    public List<RouteEntity>? GetRoutesWhereTravelTimeMoreThanAndGroupedByTrolleybusesCountOnRouteAndSortedByTravelTime(
-        float minutes)
-    {
-        throw new NotImplementedException();
     }
 
     public List<RouteDtoGroupedByNumberOfTrolleybuses<int?>>

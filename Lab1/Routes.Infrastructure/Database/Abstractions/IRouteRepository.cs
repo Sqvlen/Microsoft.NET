@@ -21,9 +21,6 @@ public interface IRouteRepository
     
     List<RouteEntity>? GetRoutesSortedByTravelTime();
 
-    List<RouteEntity>? GetRoutesWhereTravelTimeMoreThanAndGroupedByTrolleybusesCountOnRouteAndSortedByTravelTime(
-        float minutes);
-
     List<RouteDtoGroupedByNumberOfTrolleybuses<int?>>
         GetRoutesWithTravelTimeMoreThanAndGroupedByNumberOfTrolleybusesWithNameOfStartingAndEndingStopsAndAverageTravelTimeAndLongestRouteInGroup(
             float minutes, string startStopName, string endStopName);
