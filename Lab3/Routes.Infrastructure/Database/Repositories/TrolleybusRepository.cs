@@ -5,21 +5,17 @@ using Routes.Infrastructure.Entities;
 
 namespace Routes.Infrastructure.Database.Repositories;
 
-public class TrolleybusRepository(JsonNode jsonNode) : ITrolleybusRepository
+public class TrolleybusRepository : ITrolleybusRepository
 {
-    private readonly IEnumerable<TrolleybusEntity> _trolleybuses;
-    
-    public void GetJsonNode()
+    private readonly List<TrolleybusEntity> _trolleybuses;
+
+    public TrolleybusRepository(JsonNode jsonNode)
     {
-        
-    }
-    
-    public TrolleybusEntity? GetTrolleybusWithLargestNumberRoutes()
-    {
-        return _trolleybuses.MaxBy(x => x.Routes?.Count); // dbContext.Trolleybuses.MaxBy(x => x.Routes?.Count);
+        _trolleybuses = jsonNode.AsArray()
+            .SelectMany(x => x["Trolleybuses"].Deserialize<IEnumerable<TrolleybusEntity>>()).ToList();
     }
 
-    public List<int>? GetUniqueTrolleybusNumbers()
+    public List<int> GetUniqueTrolleybusNumbers()
     {
         return _trolleybuses.Select(x => x.Number).Distinct().ToList();
     }

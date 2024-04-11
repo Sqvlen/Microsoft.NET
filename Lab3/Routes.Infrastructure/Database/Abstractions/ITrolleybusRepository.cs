@@ -4,7 +4,6 @@ namespace Routes.Infrastructure.Database.Abstractions;
 
 public interface ITrolleybusRepository
 {
-    void GetJsonNode();
-    TrolleybusEntity? GetTrolleybusWithLargestNumberRoutes();
+    // void GetJsonNode();
     List<int>? GetUniqueTrolleybusNumbers();
 }
