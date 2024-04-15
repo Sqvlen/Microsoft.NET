@@ -5,8 +5,18 @@ namespace Lab4.Infrastructure.Applicant.Builder;
 
 public class ApplicantBuilder : IApplicantBuilder
 {
-    private readonly ApplicantModel _applicantModel = new ApplicantModel();
-    
+    private ApplicantModel _applicantModel = new ApplicantModel();
+
+    public ApplicantBuilder()
+    {
+        Reset();
+    }
+
+    public void Reset()
+    {
+        _applicantModel = new ApplicantModel();
+    }
+
     public IApplicantBuilder SetFirstName(string firstName)
     {
         _applicantModel.FirstName = firstName;

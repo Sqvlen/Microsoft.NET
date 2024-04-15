@@ -1,6 +1,5 @@
 ﻿using Lab4.Infrastructure.Applicant.Builder;
 using Lab4.Infrastructure.Applicant.Builder.Abstractions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lab4.Infrastructure;

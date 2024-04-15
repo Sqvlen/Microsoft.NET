@@ -1,6 +1,4 @@
 ﻿using Lab4.Infrastructure;
-using Lab4.Infrastructure.Database;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lab4.Console.Extensions;
