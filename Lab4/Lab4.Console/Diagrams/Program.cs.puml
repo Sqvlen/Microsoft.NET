@@ -1,0 +1,93 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+entity BaseEntity<TKey>
+{
++ TKey Id
+}
+entity ApplicantModel
+{
+ + string LastName 
+
+ + string FirstName 
+
+ + string MiddleName 
+
+ + DateTime DateOfBirthday 
+
+ + Dictionary<string, float> ExamsResults
+
+ + List<string> Specialties
+
+ + EducationLevel EducationLevel 
+
+ + StudyForm StudyForm 
+ 
+ + string ToString()
+}
+
+BaseEntity <|-- ApplicantModel : < owns
+StudyForm <|-- ApplicantModel : < owns
+EducationLevel <|-- ApplicantModel : < owns
+
+enum StudyForm {
+StateFunded
+Contract
+}
+
+enum EducationLevel
+{
+Bachelor
+Master
+PhD
+}
+
+class ApplicantBuilder
+{
+- ApplicantModel _applicantModel
+}
+
+IApplicantBuilder <|-- ApplicantBuilder : inheritance
+
+interface IApplicantBuilder
+{
++ IApplicantBuilder SetFirstName(string firstName);
++ IApplicantBuilder SetLastName(string lastName);
++ IApplicantBuilder SetMiddleName(string middleName);
++ IApplicantBuilder SetDateOfBirth(DateTime dateOfBirth);
++ IApplicantBuilder AddExamResult(int scores, string subject);
++ IApplicantBuilder AddSpeciality(string speciality);
++ IApplicantBuilder SetEducationLevel(EducationLevel educationLevel);
++ IApplicantBuilder SetStudyForm(StudyForm studyForm);
++ ApplicantModel Build();
+}
+
+class ApplicantContext
+{
++ void SetStrategy(IApplicantStrategy strategy)
++ void SaveAndOutputLogic(ApplicantModel applicantModel)
+}
+interface IApplicantStrategy
+{
++ void DoLog(ApplicantModel applicantModel);
+}
+class ConsoleStrategy
+{
++ void DoLog(ApplicantModel applicantModel);
+}
+class JsonStrategy
+{
++ void DoLog(ApplicantModel applicantModel);
+}
+class XmlStrategy
+{
++ void DoLog(ApplicantModel applicantModel);
+}
+
+ApplicantContext <|-- IApplicantStrategy : use
+
+IApplicantStrategy <|-- JsonStrategy : inheritance
+IApplicantStrategy <|-- XmlStrategy : inheritance
+IApplicantStrategy <|-- ConsoleStrategy : inheritance
+
+@enduml
