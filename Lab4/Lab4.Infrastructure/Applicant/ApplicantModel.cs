@@ -4,7 +4,7 @@ using Lab4.Infrastructure.Database;
 
 namespace Lab4.Infrastructure.Applicant;
 
-public class ApplicantEntity : BaseEntity<long>
+public class ApplicantModel : BaseEntity<long>
 {
     public string LastName { get; set; }
     

@@ -5,58 +5,58 @@ namespace Lab4.Infrastructure.Applicant.Builder;
 
 public class ApplicantBuilder : IApplicantBuilder
 {
-    private readonly ApplicantEntity _applicantEntity = new ApplicantEntity();
+    private readonly ApplicantModel _applicantModel = new ApplicantModel();
     
     public IApplicantBuilder SetFirstName(string firstName)
     {
-        _applicantEntity.FirstName = firstName;
+        _applicantModel.FirstName = firstName;
         return this;
     }
 
     public IApplicantBuilder SetLastName(string lastName)
     {
-        _applicantEntity.LastName = lastName;
+        _applicantModel.LastName = lastName;
         return this;
     }
 
     public IApplicantBuilder SetMiddleName(string middleName)
     {
-        _applicantEntity.MiddleName = middleName;
+        _applicantModel.MiddleName = middleName;
         return this;
     }
 
     public IApplicantBuilder SetDateOfBirth(DateTime dateOfBirth)
     {
-        _applicantEntity.DateOfBirthday = dateOfBirth;
+        _applicantModel.DateOfBirthday = dateOfBirth;
         return this;
     }
 
     public IApplicantBuilder AddExamResult(int scores, string subject)
     {
-        _applicantEntity.ExamsResults.Add(subject, scores);
+        _applicantModel.ExamsResults.Add(subject, scores);
         return this;
     }
 
     public IApplicantBuilder AddSpeciality(string speciality)
     {
-        _applicantEntity.Specialties.Add(speciality);
+        _applicantModel.Specialties.Add(speciality);
         return this;
     }
 
     public IApplicantBuilder SetEducationLevel(EducationLevel educationLevel)
     {
-        _applicantEntity.EducationLevel = educationLevel;
+        _applicantModel.EducationLevel = educationLevel;
         return this;
     }
 
     public IApplicantBuilder SetStudyForm(StudyForm studyForm)
     {
-        _applicantEntity.StudyForm = studyForm;
+        _applicantModel.StudyForm = studyForm;
         return this;
     }
 
-    public ApplicantEntity Build()
+    public ApplicantModel Build()
     {
-        return _applicantEntity;
+        return _applicantModel;
     }
 }

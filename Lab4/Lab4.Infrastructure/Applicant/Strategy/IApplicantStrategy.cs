@@ -2,5 +2,5 @@
 
 public interface IApplicantStrategy
 {
-    void DoLog(ApplicantEntity applicantEntity);
+    void DoLog(ApplicantModel applicantModel);
 }

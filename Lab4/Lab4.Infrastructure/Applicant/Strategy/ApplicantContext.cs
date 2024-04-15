@@ -19,8 +19,8 @@ public class ApplicantContext
         _strategy = strategy;
     }
     
-    public void SaveAndOutputLogic(ApplicantEntity applicantEntity)
+    public void SaveAndOutputLogic(ApplicantModel applicantModel)
     {
-        _strategy.DoLog(applicantEntity);
+        _strategy.DoLog(applicantModel);
     }
 }

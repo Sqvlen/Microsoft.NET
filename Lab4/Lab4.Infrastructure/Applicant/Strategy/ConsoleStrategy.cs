@@ -2,8 +2,8 @@
 
 public class ConsoleStrategy : IApplicantStrategy
 {
-    public void DoLog(ApplicantEntity applicantEntity)
+    public void DoLog(ApplicantModel applicantModel)
     {
-        Console.WriteLine(applicantEntity.ToString());
+        Console.WriteLine(applicantModel.ToString());
     }
 }

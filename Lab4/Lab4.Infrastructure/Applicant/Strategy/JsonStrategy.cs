@@ -5,11 +5,11 @@ namespace Lab4.Infrastructure.Applicant.Strategy;
 
 public class JsonStrategy : IApplicantStrategy
 {
-    public void DoLog(ApplicantEntity applicantEntity)
+    public void DoLog(ApplicantModel applicantModel)
     {
         var fileName = Assembly.GetExecutingAssembly().GetName().Name + ".json";
         
-        var json = JsonConvert.SerializeObject(applicantEntity);
+        var json = JsonConvert.SerializeObject(applicantModel);
         
         File.WriteAllText(fileName, json);
 
