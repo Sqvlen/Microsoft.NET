@@ -40,6 +40,8 @@ public class MenuExtensions
                 case "3":
                     context.SetStrategy(new ConsoleStrategy());
                     break;
+                case "q":
+                    return;
             }
             
             context.SaveAndOutputLogic(applicantEntity);

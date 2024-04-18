@@ -4,6 +4,7 @@ namespace Lab4.Infrastructure.Applicant.Builder.Abstractions;
 
 public interface IApplicantBuilder
 {
+    void Reset();
     IApplicantBuilder SetFirstName(string firstName);
     IApplicantBuilder SetLastName(string lastName);
     IApplicantBuilder SetMiddleName(string middleName);

@@ -117,6 +117,8 @@ public class MenuExtensions(
                     var sumOfTravelTime = routeRepository.GetSumTravelTime();
                     Console.WriteLine(sumOfTravelTime);
                     break;
+                case "q":
+                    return;
             }
         } while (true);
     }
