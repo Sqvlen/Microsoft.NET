@@ -135,6 +135,8 @@ public class MenuExtensions(
                     if (q16 is not null)
                         q16.ForEach(x => stringBuilder.Append($"Id: {x}\n"));
                     break;
+                case "q":
+                    return;
             }
 
             Console.WriteLine(stringBuilder.ToString());
