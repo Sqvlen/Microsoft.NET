@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Routes.Infrastructure.Entities;
+﻿using Routes.Infrastructure.Entities;
 using Routes.Infrastructure.Entities.Dtos;
 
 namespace Routes.Infrastructure.Database.Abstractions;

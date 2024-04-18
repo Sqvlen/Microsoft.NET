@@ -17,10 +17,10 @@ public class RouteRepository(XDocument document) : IRouteRepository
 
     public RouteEntity? GetRouteByName(string name)
     {
-        return _routes.Deserialize<RouteEntity>().ToList().FirstOrDefault(x => x.Name == name);
+        return _routes.Deserialize<RouteEntity>().AsEnumerable().FirstOrDefault(x => x.Name == name);
     }
 
-    public List<RouteEntity>? GetRoutesWhereTravelTimeMoreThan(float minutes)
+    public List<RouteEntity> GetRoutesWhereTravelTimeMoreThan(float minutes)
     {
         return _routes.Deserialize<RouteEntity>().Where(x => x.TravelTime > minutes).ToList();
     }
@@ -88,13 +88,13 @@ public class RouteRepository(XDocument document) : IRouteRepository
             }).ToList();
     }
 
-    public List<RouteEntity>? GetRoutesWhereTrolleybusAndSkip(int number, int skipNumber)
+    public List<RouteEntity> GetRoutesWhereTrolleybusAndSkip(int number, int skipNumber)
     {
         return _routes.Deserialize<RouteEntity>().Where(x => x.Number == number).Skip(skipNumber)
             .ToList();
     }
 
-    public List<RouteEntity>? GetRoutesSortedByTravelTime()
+    public List<RouteEntity> GetRoutesSortedByTravelTime()
     {
         return _routes.Deserialize<RouteEntity>().OrderBy(x => x.TravelTime).ToList();
     }
@@ -119,7 +119,7 @@ public class RouteRepository(XDocument document) : IRouteRepository
             }).ToList();
     }
 
-    public List<RouteDtoWhereNumberOfTrolleybusesMoreThan>? GetRoutesWithTrolleybusesMoreThanAndAverageTravelTime(
+    public List<RouteDtoWhereNumberOfTrolleybusesMoreThan> GetRoutesWithTrolleybusesMoreThanAndAverageTravelTime(
         int trolleybusesCount)
     {
         return _routes.Deserialize<RouteEntity>().Where(x => x.Trolleybuses?.Count == trolleybusesCount)

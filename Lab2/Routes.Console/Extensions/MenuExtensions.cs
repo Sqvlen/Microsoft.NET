@@ -26,7 +26,7 @@ public class MenuExtensions(
                 case "2":
                     Console.WriteLine("Отримати маршрут з назвою: \n");
                     var q2 = routeRepository.GetRouteByName("f");
-                    if (q2 is not null) stringBuilder.Append($"{q2?.Name}|{q2?.Number}: {q2?.TravelTime} with {q2?.Trolleybuses?.Count}. Start: {q2?.StartStopEntity?.StopName}/End: {q2?.EndStopEntity?.StopName}\n");
+                    if (q2 is not null) stringBuilder.Append($"{q2.Name}|{q2.Number}: {q2.TravelTime} with {q2.Trolleybuses?.Count}. Start: {q2.StartStopEntity?.StopName}/End: {q2.EndStopEntity?.StopName}\n");
                     Console.WriteLine(stringBuilder.ToString());
                     break;
                 case "3":
