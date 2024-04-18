@@ -16,7 +16,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     
     public RouteEntity? GetRouteByName(string name)
     {
-        return _routes.ToList().FirstOrDefault(x => x.Name == name);
+        return _routes.AsEnumerable().FirstOrDefault(x => x.Name == name);
     }
     
     public List<RouteEntity> GetRoutesWhereTravelTimeMoreThan(float minutes)

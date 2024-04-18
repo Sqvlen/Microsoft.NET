@@ -4,6 +4,8 @@ using Routes.Infrastructure.Database.Generators;
 using Routes.Infrastructure.Database.Repositories;
 using Routes.RestApi.Extensions;
 
+namespace Routes.RestApi;
+
 public static class Program
 {
     internal static async Task Main(string[] args)
