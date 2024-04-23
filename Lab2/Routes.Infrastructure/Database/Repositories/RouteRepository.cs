@@ -15,9 +15,9 @@ public class RouteRepository(XDocument document) : IRouteRepository
         return from route in _routes select route.Deserialize<RouteEntity>();
     }
 
-    public RouteEntity? GetRouteByName(string name)
+    public RouteEntity GetRouteByName(string name)
     {
-        return _routes.Deserialize<RouteEntity>().AsEnumerable().FirstOrDefault(x => x.Name == name);
+        return _routes.FirstOrDefault(x => x.Descendants("Name").First().Value == name)!.Deserialize<RouteEntity>();
     }
 
     public List<RouteEntity> GetRoutesWhereTravelTimeMoreThan(float minutes)

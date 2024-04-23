@@ -28,7 +28,7 @@ public class BogusGenerator
             .RuleFor(r => r.TravelTime, f => f.Random.Int(25, 50));
     }
 
-    public List<RouteEntity> GenerateRouteEntity(int count)
+    public IEnumerable<RouteEntity> GenerateRouteEntity(int count)
     {
         return _routeFaker.Generate(count);
     }
