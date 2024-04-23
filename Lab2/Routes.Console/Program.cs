@@ -20,13 +20,9 @@ public static class Program
         var generator = new BogusGenerator();
         var entities = generator.GenerateRouteEntity(15);
 
-        XmlCustomSerializer.Save<RouteEntity>(entities, fileName, "Routes");
-
-
-        // using (var writer = new StreamWriter(fileName))
-        // {
-        //     writer.Write(xml);
-        // }
+        XmlCustomSerializer.Serialize<RouteEntity>(entities, fileName, "Routes");
+        
+        
 
         // var document = XDocument.Parse(File.ReadAllText(fileName));
         // var menuExtension = new MenuExtensions(new RouteRepository(document));
