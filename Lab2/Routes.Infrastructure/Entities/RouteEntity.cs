@@ -15,7 +15,7 @@ public class RouteEntity : BaseEntity<long>
     
     public StopEntity? StartStopEntity { get; set; }
     public StopEntity? EndStopEntity { get; set; }
-    public List<TrolleybusEntity>? Trolleybuses { get; set; }
+    public ICollection<TrolleybusEntity>? Trolleybuses { get; set; }
     
     [Required]
     public required float TravelTime { get; set; }

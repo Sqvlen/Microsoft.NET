@@ -32,7 +32,7 @@ public static class XmlCustomSerializer
         return stringWriter.ToString();
     }
 
-    public static void Save<T>(IEnumerable<T> objects, string fileName)
+    public static void Save<T>(object obj, string fileName, string name)
     {
         XmlWriterSettings settings = new()
         {
@@ -40,50 +40,63 @@ public static class XmlCustomSerializer
         };
 
         using var xmlWriter = XmlWriter.Create(fileName, settings);
-        Write(objects, xmlWriter, "Routes");
+        Write<T>(obj, xmlWriter, name);
     }
 
-    private static void Write<T>(IEnumerable<T> objects, XmlWriter xmlWriter, string name)
+    private static void Write<T>(object obj, XmlWriter xmlWriter, string name)
     {
-        xmlWriter.WriteStartElement(name);
-        
-        Type innerType;
-        
-        try
+        if (obj is IEnumerable<object> objects)
         {
-            innerType = objects.GetType().GetGenericArguments().First();
-        }
-        catch (InvalidOperationException)
-        {
-            innerType = typeof(object);
-        }
+            if (objects.Count() < 0)
+                return;
+                
+            xmlWriter.WriteStartElement(name);
 
-        foreach (var item in objects)
-        {
-            var itemType = item!.GetType();
-            WriteElement(item, xmlWriter, innerType, innerType != itemType);
-        }
+            Type innerType;
 
-        xmlWriter.WriteEndElement();
-    }
-
-    private static void WriteElement<T>(T obj, XmlWriter xmlWriter, Type type, bool writeString)
-    {
-        xmlWriter.WriteStartElement(type.Name);
-
-        if (writeString)
-            xmlWriter.WriteElementString(type.Name, obj!.GetType().ToString());
-
-        foreach (var prop in type.GetProperties())
-        {
-            if (prop.CustomAttributes.All(a => a.AttributeType != typeof(XmlIgnoreAttribute)) &&
-                prop.GetValue(obj) is not null)
+            try
             {
-                WriteElement(prop.GetValue(obj), xmlWriter, prop.GetValue(obj)!.GetType(),
-                    prop.PropertyType.IsInterface);
+                innerType = objects.GetType().GetGenericArguments().First();
             }
-        }
+            catch (InvalidOperationException)
+            {
+                innerType = typeof(object);
+            }
 
-        xmlWriter.WriteEndElement();
+            foreach (var item in objects)
+            {
+                var itemType = item.GetType();
+                WriteElement<T>(item, xmlWriter, innerType, innerType != itemType);
+            }
+
+            xmlWriter.WriteEndElement();   
+        }
+    }
+
+    private static void WriteElement<T>(object obj, XmlWriter xmlWriter, Type type, bool writeString)
+    {
+        if (obj is IEnumerable<object>)
+            Write<T>(obj, xmlWriter, type.Name);
+        if (type.IsPrimitive || type.IsEnum || type == typeof(string) || type.IsAbstract)
+            xmlWriter.WriteElementString(type.Name, obj.ToString());
+        else
+        {
+            xmlWriter.WriteStartElement(type.Name);
+
+            if (writeString)
+                xmlWriter.WriteElementString(type.Name, obj.GetType().ToString());
+
+            foreach (var prop in type.GetProperties())
+            {
+                if (prop.CustomAttributes.All(a => a.AttributeType != typeof(XmlIgnoreAttribute)) &&
+                    prop.GetValue(obj) is not null)
+                {
+                    WriteElement<T>(prop.GetValue(obj)!, xmlWriter, prop.GetValue(obj)!.GetType(),
+                        prop.PropertyType.IsInterface);
+                }
+            }
+
+            xmlWriter.WriteEndElement();
+        }
     }
 }

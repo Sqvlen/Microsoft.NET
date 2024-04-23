@@ -8,5 +8,5 @@ public class TrolleybusEntity : BaseEntity<long>
     [Required]
     public required int Number { get; set; }
     
-    public List<RouteEntity>? Routes { get; set; }
+    public ICollection<RouteEntity>? Routes { get; set; }
 }

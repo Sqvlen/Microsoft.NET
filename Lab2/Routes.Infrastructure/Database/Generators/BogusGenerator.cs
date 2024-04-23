@@ -33,12 +33,12 @@ public class BogusGenerator
         return _routeFaker.Generate(count);
     }
 
-    public List<StopEntity> GenerateStopEntity(int count)
+    public IEnumerable<StopEntity> GenerateStopEntity(int count)
     {
         return _stopFaker.Generate(count);
     }
 
-    public List<TrolleybusEntity> GenerateTrolleybusEntity(int count)
+    public IEnumerable<TrolleybusEntity> GenerateTrolleybusEntity(int count)
     {
         return _trolleybusFaker.Generate(count);
     }

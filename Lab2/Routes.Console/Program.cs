@@ -20,7 +20,7 @@ public static class Program
         var generator = new BogusGenerator();
         var entities = generator.GenerateRouteEntity(15);
 
-        XmlCustomSerializer.Save(entities, fileName);
+        XmlCustomSerializer.Save<RouteEntity>(entities, fileName, "Routes");
 
 
         // using (var writer = new StreamWriter(fileName))
