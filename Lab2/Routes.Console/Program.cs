@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Routes.Infrastructure.Database.Generators;
+using Routes.Infrastructure.Entities;
 using Routes.RestApi.Extensions;
 using Routes.Xml.Core.Writer;
 
@@ -18,8 +19,10 @@ public static class Program
         var generator = new BogusGenerator();
         var entities = generator.GenerateRouteEntity(15);
 
-        XmlCustomWriter.Write(new XmlWriterParams()
+        XmlCustomWriter.Write<IEnumerable<RouteEntity>>(new XmlWriterParams()
             { Data = entities, FileName = fileName, XmlSectionName = "Routes" });
+
+        Console.ReadLine();
 
         // var document = XDocument.Parse(File.ReadAllText(fileName));
         // var menuExtension = new MenuExtensions(new RouteRepository(document));

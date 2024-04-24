@@ -24,7 +24,7 @@ public class BogusGenerator
             .RuleFor(r => r.Number, f => f.Random.Int(1, 100))
             .RuleFor(r => r.StartStopEntity, _stopFaker.Generate())
             .RuleFor(r => r.EndStopEntity, _stopFaker.Generate())
-            .RuleFor(r => r.Trolleybuses, f => _trolleybusFaker.Generate(f.Random.Int(1, 5)).ToList())
+            .RuleFor(r => r.Trolleybuses, f => _trolleybusFaker.Generate(f.Random.Int(1, 3)).ToList())
             .RuleFor(r => r.TravelTime, f => f.Random.Int(25, 50));
     }
 
