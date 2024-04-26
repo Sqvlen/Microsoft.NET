@@ -2,7 +2,7 @@
 
 namespace Routes.Xml.Core.Writer;
 
-public class XmlCustomWriter
+public abstract class XmlCustomWriter
 {
     private static XmlWriter? _xmlWriter;
 
