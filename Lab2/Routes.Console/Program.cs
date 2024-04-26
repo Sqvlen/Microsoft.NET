@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Routes.Infrastructure.Database.Generators;
+using Routes.Infrastructure.Database.Repositories;
 using Routes.Infrastructure.Entities;
 using Routes.RestApi.Extensions;
+using Routes.Xml.Core.Reader;
 using Routes.Xml.Core.Writer;
 
 namespace Routes.RestApi;
@@ -21,12 +23,13 @@ public static class Program
 
         XmlCustomWriter.Write<IEnumerable<RouteEntity>>(new XmlWriterParams()
             { Data = entities, FileName = fileName, XmlSectionName = "Routes" });
+        
+        var xmlReader = new XmlCustomReader();
+        var data = xmlReader.Read<List<RouteEntity>>(new XmlReaderParams()
+            { ElementName = "Routes", FileName = fileName });
 
-        Console.ReadLine();
-
-        // var document = XDocument.Parse(File.ReadAllText(fileName));
-        // var menuExtension = new MenuExtensions(new RouteRepository(document));
-        //
-        // menuExtension.Open();
+        var menuExtension = new MenuExtensions(new RouteRepository(data));
+        
+        menuExtension.Open();
     }
 }
