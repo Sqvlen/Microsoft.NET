@@ -10,7 +10,7 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<IStopRepository, StopRepository>();
-        // services.AddScoped<IRouteRepository, RouteRepository>();
+        services.AddScoped<IRouteRepository, RouteRepository>();
         services.AddScoped<ITrolleybusRepository, TrolleybusRepository>();
         
         return services;

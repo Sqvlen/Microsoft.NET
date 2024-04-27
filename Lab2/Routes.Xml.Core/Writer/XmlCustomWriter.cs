@@ -29,32 +29,34 @@ public abstract class XmlCustomWriter
         if (xmlWriter is null)
             throw new InvalidOperationException("Create the XmlWriter before to use XmlCustomWriter");
 
-        if (obj is IEnumerable<object> objects)
+        if (obj is not IEnumerable<object> objects) 
+            return;
+        
+        objects.TryGetNonEnumeratedCount(out var count);
+        
+        if (count < 0)
+            return;
+
+        xmlWriter.WriteStartElement(name);
+
+        Type innerType;
+
+        try
         {
-            if (objects.Count() < 0)
-                return;
-
-            xmlWriter.WriteStartElement(name);
-
-            Type innerType;
-
-            try
-            {
-                innerType = objects.GetType().GetGenericArguments().First();
-            }
-            catch (InvalidOperationException)
-            {
-                innerType = typeof(object);
-            }
-
-            foreach (var item in objects)
-            {
-                var itemType = item.GetType();
-                WriteElement<T>(item, xmlWriter, innerType.Name, innerType, innerType != itemType);
-            }
-
-            xmlWriter.WriteEndElement();
+            innerType = objects.GetType().GetGenericArguments().First();
         }
+        catch (InvalidOperationException)
+        {
+            innerType = typeof(object);
+        }
+
+        foreach (var item in objects)
+        {
+            var itemType = item.GetType();
+            WriteElement<T>(item, xmlWriter, innerType.Name, innerType, innerType != itemType);
+        }
+
+        xmlWriter.WriteEndElement();
     }
 
     public static void WriteElement<T>(XmlPropParams xmlPropParams) => WriteElement<T>(xmlPropParams.Data,

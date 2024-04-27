@@ -1,46 +1,43 @@
-﻿using System.Text.Json;
-using Routes.Infrastructure.Database.Abstractions;
+﻿using Routes.Infrastructure.Database.Abstractions;
 using Routes.Infrastructure.Entities;
 using Routes.Infrastructure.Entities.Dtos;
 
 namespace Routes.Infrastructure.Database.Repositories;
 
-public class RouteRepository(JsonDocument document) : IRouteRepository
+public class RouteRepository(IEnumerable<RouteEntity> entities) : IRouteRepository
 {
-    private readonly IEnumerable<RouteEntity> _routes = document.Deserialize<IEnumerable<RouteEntity>>()!;
-    
     public IEnumerable<RouteEntity> GetAll()
     {
-        return from route in _routes select route;
+        return from route in entities select route;
     }
     
     public RouteEntity? GetRouteByName(string name)
     {
-        return _routes.AsEnumerable().FirstOrDefault(x => x.Name == name);
+        return entities.AsEnumerable().FirstOrDefault(x => x.Name == name);
     }
     
     public List<RouteEntity> GetRoutesWhereTravelTimeMoreThan(float minutes)
     {
-        return _routes.Where(x => x.TravelTime > minutes).ToList();
+        return entities.Where(x => x.TravelTime > minutes).ToList();
     }
     
     public List<RouteEntity> GetRoutesThatRunThroughStop(string stopName)
     {
-        return _routes.Where(x => x.StartStopEntity?.StopName == stopName ||
+        return entities.Where(x => x.StartStopEntity?.StopName == stopName ||
                                                              x.EndStopEntity?.StopName == stopName)
             .ToList();
     }
     
     public List<RouteEntity> GetRoutesWithTrolleybusesMoreThan(int trolleybusesCount)
     {
-        return _routes
+        return entities
             .Where(x => x.Trolleybuses?.Count > trolleybusesCount).ToList();
     }
     
     public List<RouteEntity> GetRoutesWhereTravelTimeLessThanAndTrolleybusesMoreThan(float minutes,
         int trolleybusesCount)
     {
-        return _routes.Where(x =>
+        return entities.Where(x =>
                 x.Trolleybuses?.Count > trolleybusesCount && x.TravelTime < minutes).ToList();
     }
     
@@ -48,7 +45,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
         float minutes,
         int trolleybusesCount)
     {
-        return _routes.Where(x =>
+        return entities.Where(x =>
                 x.Trolleybuses?.Count > trolleybusesCount &&
                 x.TravelTime < minutes)
             .OrderBy(x => x.TravelTime)
@@ -58,7 +55,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     public List<RouteDtoWhereTimeTravelMoreThanAndGroupedByNumberOfTrolleybusInRoute<int?>>
         GetRoutesWhereTravelTimeMoreThanAndGroupedByTrolleybusesNumberOnRoute(float minutes)
     {
-        return _routes.Where(x => x.TravelTime > minutes)
+        return entities.Where(x => x.TravelTime > minutes)
             .GroupBy(x => x.Trolleybuses?.Count)
             .Select(x => new RouteDtoWhereTimeTravelMoreThanAndGroupedByNumberOfTrolleybusInRoute<int?>
             {
@@ -69,7 +66,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     
     public List<RouteEntity> GetRoutesWhereTravelTimeMoreThanAndTake(float minutes, int numberTake)
     {
-        return _routes.Where(x => x.TravelTime > minutes)
+        return entities.Where(x => x.TravelTime > minutes)
             .OrderByDescending(x => x.TravelTime)
             .Take(numberTake)
             .ToList();
@@ -78,7 +75,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     public List<RouteDtoWhereTravelTimeMoreThanAndGroupedByNumberOfTrolleybuses<int?>>
         GetRoutesWhereTravelTimeMoreThanAndGroupedByTrolleybusesNumberOnRouteAndNumberRoutesInGroup(float minutes)
     {
-        return _routes.Where(x => x.TravelTime > minutes)
+        return entities.Where(x => x.TravelTime > minutes)
             .GroupBy(x => x.Trolleybuses?.Count)
             .Select(x => new RouteDtoWhereTravelTimeMoreThanAndGroupedByNumberOfTrolleybuses<int?>
             {
@@ -89,20 +86,20 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     
     public List<RouteEntity> GetRoutesWhereTrolleybusAndSkip(int number, int skipNumber)
     {
-        return _routes.Where(x => x.Number == number).Skip(skipNumber)
+        return entities.Where(x => x.Number == number).Skip(skipNumber)
             .ToList();
     }
     
     public List<RouteEntity> GetRoutesSortedByTravelTime()
     {
-        return _routes.OrderBy(x => x.TravelTime).ToList();
+        return entities.OrderBy(x => x.TravelTime).ToList();
     }
     
     public List<RouteDtoGroupedByNumberOfTrolleybuses<int?>>
         GetRoutesWithTravelTimeMoreThanAndGroupedByNumberOfTrolleybusesWithNameOfStartingAndEndingStopsAndAverageTravelTimeAndLongestRouteInGroup(
             float minutes, string startStopName, string endStopName)
     {
-        return _routes.Where(x => x.TravelTime > minutes)
+        return entities.Where(x => x.TravelTime > minutes)
             .GroupBy(x => x.Trolleybuses?.Count)
             .Select(x => new RouteDtoGroupedByNumberOfTrolleybuses<int?>()
             {
@@ -121,7 +118,7 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     public List<RouteDtoWhereNumberOfTrolleybusesMoreThan> GetRoutesWithTrolleybusesMoreThanAndAverageTravelTime(
         int trolleybusesCount)
     {
-        return _routes.Where(x => x.Trolleybuses?.Count == trolleybusesCount)
+        return entities.Where(x => x.Trolleybuses?.Count == trolleybusesCount)
             .Select(x => new RouteDtoWhereNumberOfTrolleybusesMoreThan
             {
                 RouteName = x.Name,
@@ -131,6 +128,6 @@ public class RouteRepository(JsonDocument document) : IRouteRepository
     
     public float GetSumTravelTime()
     {
-        return _routes.Sum(x => x.TravelTime);
+        return entities.Sum(x => x.TravelTime);
     }
 }

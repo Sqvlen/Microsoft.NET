@@ -22,23 +22,23 @@ public class BogusGenerator
             .RuleFor(r => r.Id, f => f.IndexFaker)
             .RuleFor(r => r.Name, f => f.Address.State())
             .RuleFor(r => r.Number, f => f.Random.Int(1, 100))
-            .RuleFor(r => r.StartStopEntity, f => _stopFaker.Generate())
-            .RuleFor(r => r.EndStopEntity, f => _stopFaker.Generate())
-            .RuleFor(r => r.Trolleybuses, f => _trolleybusFaker.Generate(f.Random.Int(1, 5)).ToList())
+            .RuleFor(r => r.StartStopEntity, _stopFaker.Generate())
+            .RuleFor(r => r.EndStopEntity, _stopFaker.Generate())
+            .RuleFor(r => r.Trolleybuses, f => _trolleybusFaker.Generate(f.Random.Int(1, 3)).ToList())
             .RuleFor(r => r.TravelTime, f => f.Random.Int(25, 50));
     }
 
-    public List<RouteEntity> GenerateRouteEntity(int count)
+    public IEnumerable<RouteEntity> GenerateRouteEntity(int count)
     {
         return _routeFaker.Generate(count);
     }
 
-    public List<StopEntity> GenerateStopEntity(int count)
+    public IEnumerable<StopEntity> GenerateStopEntity(int count)
     {
         return _stopFaker.Generate(count);
     }
 
-    public List<TrolleybusEntity> GenerateTrolleybusEntity(int count)
+    public IEnumerable<TrolleybusEntity> GenerateTrolleybusEntity(int count)
     {
         return _trolleybusFaker.Generate(count);
     }
