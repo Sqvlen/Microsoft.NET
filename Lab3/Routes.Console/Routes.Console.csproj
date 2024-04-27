@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Routes.Infrastructure\Routes.Infrastructure.csproj" />
+      <ProjectReference Include="..\Routes.Json.Core\Routes.Json.Core.csproj" />
     </ItemGroup>
 
 </Project>
