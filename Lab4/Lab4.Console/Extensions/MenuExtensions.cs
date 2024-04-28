@@ -1,6 +1,7 @@
-﻿using Lab4.Infrastructure.Applicant.Builder;
+﻿using System.Reflection;
+using Lab4.Infrastructure.Applicant.Builder;
 using Lab4.Infrastructure.Applicant.Enums;
-using Lab4.Infrastructure.Applicant.Strategy;
+using Lab4.Infrastructure.Applicant.PolymorphicFactoryMethod;
 
 namespace Lab4.Console.Extensions;
 
@@ -8,6 +9,8 @@ public class MenuExtensions
 {
     public void Process()
     {
+        var fileName = Assembly.GetExecutingAssembly().GetName().Name;
+        
         var applicantEntity = new ApplicantBuilder()
             .SetFirstName("First name")
             .SetLastName("Second name")
@@ -22,29 +25,28 @@ public class MenuExtensions
             .SetEducationLevel(EducationLevel.Bachelor)
             .SetStudyForm(StudyForm.StateFunded)
             .Build();
-
-        var context = new ApplicantContext();
         
         do
         {
             System.Console.WriteLine("Save and output as:\n1. JSON\n2. Xml\n3. Console");
             var input = System.Console.ReadLine();
+            ILogger logger = new ConsoleLogger();
             switch (input)
             {
                 case "1":
-                    context.SetStrategy(new JsonStrategy());
+                    logger = LoggerProviderFactory.GetLoggingProvider(LoggerProviderFactory.LoggingProvider.Json);
                     break;
                 case "2":
-                    context.SetStrategy(new XmlStrategy());
+                    logger = LoggerProviderFactory.GetLoggingProvider(LoggerProviderFactory.LoggingProvider.Xml);
                     break;
                 case "3":
-                    context.SetStrategy(new ConsoleStrategy());
+                    logger = LoggerProviderFactory.GetLoggingProvider(LoggerProviderFactory.LoggingProvider.Console);
                     break;
                 case "q":
                     return;
             }
             
-            context.SaveAndOutputLogic(applicantEntity);
+            logger.Save(applicantEntity, fileName);
         } while (true);
     }
 }
