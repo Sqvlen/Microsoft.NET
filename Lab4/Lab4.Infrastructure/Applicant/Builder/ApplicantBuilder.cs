@@ -5,7 +5,7 @@ namespace Lab4.Infrastructure.Applicant.Builder;
 
 public class ApplicantBuilder : IApplicantBuilder
 {
-    private ApplicantModel _applicantModel = new ApplicantModel();
+    private ApplicantEntity _applicantEntity = new ApplicantEntity();
 
     public ApplicantBuilder()
     {
@@ -14,59 +14,59 @@ public class ApplicantBuilder : IApplicantBuilder
 
     public void Reset()
     {
-        _applicantModel = new ApplicantModel();
+        _applicantEntity = new ApplicantEntity();
     }
 
     public IApplicantBuilder SetFirstName(string firstName)
     {
-        _applicantModel.FirstName = firstName;
+        _applicantEntity.FirstName = firstName;
         return this;
     }
 
     public IApplicantBuilder SetLastName(string lastName)
     {
-        _applicantModel.LastName = lastName;
+        _applicantEntity.LastName = lastName;
         return this;
     }
 
     public IApplicantBuilder SetMiddleName(string middleName)
     {
-        _applicantModel.MiddleName = middleName;
+        _applicantEntity.MiddleName = middleName;
         return this;
     }
 
     public IApplicantBuilder SetDateOfBirth(DateTime dateOfBirth)
     {
-        _applicantModel.DateOfBirthday = dateOfBirth;
+        _applicantEntity.DateOfBirthday = dateOfBirth;
         return this;
     }
 
     public IApplicantBuilder AddExamResult(int scores, string subject)
     {
-        _applicantModel.ExamsResults.Add(subject, scores);
+        _applicantEntity.ExamsResults.Add(subject, scores);
         return this;
     }
 
     public IApplicantBuilder AddSpeciality(string speciality)
     {
-        _applicantModel.Specialties.Add(speciality);
+        _applicantEntity.Specialties.Add(speciality);
         return this;
     }
 
     public IApplicantBuilder SetEducationLevel(EducationLevel educationLevel)
     {
-        _applicantModel.EducationLevel = educationLevel;
+        _applicantEntity.EducationLevel = educationLevel;
         return this;
     }
 
     public IApplicantBuilder SetStudyForm(StudyForm studyForm)
     {
-        _applicantModel.StudyForm = studyForm;
+        _applicantEntity.StudyForm = studyForm;
         return this;
     }
 
-    public ApplicantModel Build()
+    public ApplicantEntity Build()
     {
-        return _applicantModel;
+        return _applicantEntity;
     }
 }

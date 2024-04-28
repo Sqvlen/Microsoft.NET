@@ -13,5 +13,5 @@ public interface IApplicantBuilder
     IApplicantBuilder AddSpeciality(string speciality);
     IApplicantBuilder SetEducationLevel(EducationLevel educationLevel);
     IApplicantBuilder SetStudyForm(StudyForm studyForm);
-    ApplicantModel Build();
+    ApplicantEntity Build();
 }
