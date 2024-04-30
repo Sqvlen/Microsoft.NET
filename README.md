@@ -3,4 +3,4 @@ Labs:
 - [x] LINQ
 - [x] LINQ to XML
 - [x] LINQ to JSON
-- [ ] GoF patterns
+- [x] GoF patterns
