@@ -46,7 +46,7 @@ public class MenuExtensions
                     return;
             }
             
-            logger.Save(applicantEntity, fileName);
+            logger.Save(applicantEntity, fileName!);
         } while (true);
     }
 }

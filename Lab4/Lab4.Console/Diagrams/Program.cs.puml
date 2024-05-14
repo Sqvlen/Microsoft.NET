@@ -47,7 +47,7 @@ class ApplicantBuilder
 - ApplicantModel _applicantModel
 }
 
-IApplicantBuilder <|-- ApplicantBuilder : inheritance
+IApplicantBuilder --|> ApplicantBuilder : implement
 
 interface IApplicantBuilder
 {
@@ -62,32 +62,39 @@ interface IApplicantBuilder
 + ApplicantModel Build();
 }
 
-class ApplicantContext
+interface ILogger
 {
-+ void SetStrategy(IApplicantStrategy strategy)
-+ void SaveAndOutputLogic(ApplicantModel applicantModel)
-}
-interface IApplicantStrategy
-{
-+ void DoLog(ApplicantModel applicantModel);
-}
-class ConsoleStrategy
-{
-+ void DoLog(ApplicantModel applicantModel);
-}
-class JsonStrategy
-{
-+ void DoLog(ApplicantModel applicantModel);
-}
-class XmlStrategy
-{
-+ void DoLog(ApplicantModel applicantModel);
+    void Save(ApplicantEntity applicantEntity, string fileName);
 }
 
-ApplicantContext <|-- IApplicantStrategy : use
+class ConsoleLogger 
+{
+    void Save(ApplicantEntity applicantEntity, string fileName)
+}
 
-IApplicantStrategy <|-- JsonStrategy : inheritance
-IApplicantStrategy <|-- XmlStrategy : inheritance
-IApplicantStrategy <|-- ConsoleStrategy : inheritance
+class XmlLogger 
+{
+    void Save(ApplicantEntity applicantEntity, string fileName)
+}
 
+class JsonLogger 
+{
+    void Save(ApplicantEntity applicantEntity, string fileName)
+}
+
+ILogger --|> ConsoleLogger : implement
+ILogger --|> JsonLogger : implement
+ILogger --|> XmlLogger : implement
+
+class LoggerProviderFactory
+{
+    static ILogger GetLoggingProvider(LoggingProvider loggingProvider);
+}
+
+enum LoggingProvider
+{
+    Json,
+    Xml,
+    Console
+}
 @enduml

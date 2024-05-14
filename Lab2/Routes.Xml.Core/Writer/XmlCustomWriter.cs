@@ -52,8 +52,7 @@ public abstract class XmlCustomWriter
 
         foreach (var item in objects)
         {
-            var itemType = item.GetType();
-            WriteElement<T>(item, xmlWriter, innerType.Name, innerType, innerType != itemType);
+            WriteElement<T>(item, xmlWriter, innerType.Name, innerType, innerType != item.GetType());
         }
 
         xmlWriter.WriteEndElement();

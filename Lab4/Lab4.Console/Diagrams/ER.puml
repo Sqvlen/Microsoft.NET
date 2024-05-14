@@ -1,0 +1,45 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+entity BaseEntity<TKey>
+{
++ TKey Id
+}
+entity ApplicantModel
+{
+ + string LastName 
+
+ + string FirstName 
+
+ + string MiddleName 
+
+ + DateTime DateOfBirthday 
+
+ + Dictionary<string, float> ExamsResults
+
+ + List<string> Specialties
+
+ + EducationLevel EducationLevel 
+
+ + StudyForm StudyForm 
+ 
+ + string ToString()
+}
+
+BaseEntity <|-- ApplicantModel : < owns
+StudyForm <|-- ApplicantModel : < owns
+EducationLevel <|-- ApplicantModel : < owns
+
+enum StudyForm {
+StateFunded
+Contract
+}
+
+enum EducationLevel
+{
+Bachelor
+Master
+PhD
+}
+
+@enduml

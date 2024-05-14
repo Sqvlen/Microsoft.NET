@@ -1,29 +1,13 @@
-﻿using Routes.Infrastructure.Database.Abstractions;
+﻿using System.Xml;
+using Routes.Infrastructure.Database.Abstractions;
 using Routes.Infrastructure.Entities;
 
 namespace Routes.Infrastructure.Database.Repositories;
 
-public class TrolleybusRepository(AppDbContext dbContext) : ITrolleybusRepository
+public class TrolleybusRepository(XmlDocument xmlDocument) : ITrolleybusRepository
 {
     public TrolleybusEntity? GetTrolleybusWithLargestNumberRoutes()
     {
-        return dbContext.Trolleybuses.MaxBy(x => x.Routes?.Count);
-    }
-
-    public List<int>? GetTrolleybusesInRoute(int routeId)
-    {
-        return dbContext.Routes.SingleOrDefault(x => x.Number == routeId)?.Trolleybuses?.Select(x => x.Number).ToList();
-    }
-
-    public List<int> GetUniqueTrolleybusNumbers()
-    {
-        return dbContext.Trolleybuses.Select(x => x.Number).Distinct().ToList();
-    }
-
-    public int GetNumberTrolleybusesByCity(string cityName)
-    {
-        return dbContext.Cities.Find(c => c.Name == cityName)!.Routes!
-            .Where(r => r.Trolleybuses != null)
-            .Sum(r => r.Trolleybuses!.Count);
+        return null;
     }
 }
