@@ -24,15 +24,21 @@ public static class Program
 
         JsonCustomWriter.Write(new JsonWriterParams() { Data = entities, FileName = fileName, Name = "Routes" });
 
-        // var document = JsonDocument;
-
         // Example 7/Program.cs - зчитування даних з файлу
-        var trolleybusEntities = JsonNode.Parse(File.ReadAllText(fileName))!.AsArray()
-            .SelectMany(x => x["Trolleybuses"].Deserialize<IEnumerable<TrolleybusEntity>>());
-        var routesEntities = JsonNode.Parse(File.ReadAllText(fileName)).Deserialize<IEnumerable<RouteEntity>>()!;
-
-        var menuExtension = new MenuExtensions(new RouteRepository(routesEntities),
-            new TrolleybusRepository(trolleybusEntities));
-        menuExtension.Open();
+        try
+        {
+            var trolleybusEntities = JsonNode.Parse(File.ReadAllText(fileName))!.AsArray()
+                .SelectMany(x => x["Trolleybuses"].Deserialize<IEnumerable<TrolleybusEntity>>());
+            var routesEntities = JsonNode.Parse(File.ReadAllText(fileName)).Deserialize<IEnumerable<RouteEntity>>()!;
+            
+            var menuExtension = new MenuExtensions(new RouteRepository(routesEntities),
+                new TrolleybusRepository(trolleybusEntities));
+            menuExtension.Open();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

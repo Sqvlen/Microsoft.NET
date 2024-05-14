@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using System.Xml;
+using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Routes.Infrastructure.Database.Generators;
 using Routes.Infrastructure.Database.Repositories;
@@ -23,13 +25,13 @@ public static class Program
 
         XmlCustomWriter.Write<IEnumerable<RouteEntity>>(new XmlWriterParams()
             { Data = entities, FileName = fileName, XmlSectionName = "Routes" });
-        
+
         var xmlReader = new XmlCustomReader();
         var data = xmlReader.Read<List<RouteEntity>>(new XmlReaderParams()
             { ElementName = "Routes", FileName = fileName });
-
-        var menuExtension = new MenuExtensions(new RouteRepository(data));
         
+        var menuExtension = new MenuExtensions(new RouteRepository(data));
+
         menuExtension.Open();
     }
 }
