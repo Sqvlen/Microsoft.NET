@@ -11,6 +11,6 @@ public class Word(string value) : Component
 
     public override bool IsComposite()
     {
-        return true;
+        return false;
     }
 }

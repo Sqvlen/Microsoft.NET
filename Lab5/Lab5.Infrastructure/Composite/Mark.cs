@@ -9,6 +9,6 @@ public class Mark(string value) : Component
 
     public override bool IsComposite()
     {
-        return true;
+        return false;
     }
 }
