@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Component
+{
+    + abstract string Operation()
+    + virtual void Add(Component component)
+    + virtual void Remove(Component component)
+    + abstract bool IsComposite();
+}
+
+class Mark
+{
+    + override string Operation()
+    + override bool IsComposite()
+}
+class Word
+{
+    + override string Operation()
+    + override bool IsComposite()
+}
+class Paragraph
+{
+    - List<Component> _children
+    + override string Operation()
+    + override bool IsComposite()
+    + override void Add(Component component)
+    + override void Remove(Component component)
+}
+class Sentence
+{
+    - List<Component> _children
+    + override string Operation()
+    + override bool IsComposite()
+    + override void Add(Component component)
+    + override void Remove(Component component)
+}
+class Text
+{
+    - List<Component> _components
+    + override string Operation()
+    + override bool IsComposite()
+    + override void Add(Component component)
+    + override void Remove(Component component)
+}
+
+Mark <|-- Component
+Word <|-- Component
+Paragraph <|-- Component
+Sentence <|-- Component
+Text <|-- Component
+
+Sentence --* Component : children
+Paragraph --* Component : children
+Text --* Component : children
+
+@enduml

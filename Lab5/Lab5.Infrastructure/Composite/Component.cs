@@ -15,6 +15,4 @@ public abstract class Component
     }
 
     public abstract bool IsComposite();
-    
-    
 }

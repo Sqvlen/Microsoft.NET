@@ -20,7 +20,7 @@ internal static class Program
         
         sentence1.Add(word1);
         sentence1.Add(mark1);
-        sentence1.Add(word1);
+        sentence1.Add(word2);
         
         var word3 = new Word("bam");
         var word4 = new Word("too");
@@ -37,11 +37,6 @@ internal static class Program
 
         var sentence3 = new Sentence();
         var sentence4 = new Sentence();
-        var sentence5 = new Sentence();
-        
-        var word5 = new Word("test");
-        var word6 = new Word("foo");
-        var mark4 = new Mark(",");
         
         sentence3.Add(word1);
         sentence3.Add(mark1);
@@ -57,7 +52,6 @@ internal static class Program
         
         paragraph2.Add(sentence3);
         paragraph2.Add(sentence4);
-        paragraph2.Add(sentence5);
         
         text.Add(paragraph1);
         text.Add(paragraph2);

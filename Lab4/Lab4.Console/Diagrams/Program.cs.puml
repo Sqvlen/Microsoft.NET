@@ -5,7 +5,7 @@ entity BaseEntity<TKey>
 {
 + TKey Id
 }
-entity ApplicantModel
+entity ApplicantEntity
 {
  + string LastName 
 
@@ -26,9 +26,9 @@ entity ApplicantModel
  + string ToString()
 }
 
-BaseEntity <|-- ApplicantModel : < owns
-StudyForm <|-- ApplicantModel : < owns
-EducationLevel <|-- ApplicantModel : < owns
+BaseEntity <|-- ApplicantEntity : < owns
+StudyForm <|-- ApplicantEntity : < owns
+EducationLevel <|-- ApplicantEntity : < owns
 
 enum StudyForm {
 StateFunded
@@ -44,7 +44,7 @@ PhD
 
 class ApplicantBuilder
 {
-- ApplicantModel _applicantModel
+- ApplicantEntity _applicantModel
 }
 
 IApplicantBuilder --|> ApplicantBuilder : implement
@@ -59,7 +59,7 @@ interface IApplicantBuilder
 + IApplicantBuilder AddSpeciality(string speciality);
 + IApplicantBuilder SetEducationLevel(EducationLevel educationLevel);
 + IApplicantBuilder SetStudyForm(StudyForm studyForm);
-+ ApplicantModel Build();
++ ApplicantEntity Build();
 }
 
 interface ILogger
@@ -97,4 +97,14 @@ enum LoggingProvider
     Xml,
     Console
 }
+
+IApplicantBuilder --* StudyForm
+IApplicantBuilder --* EducationLevel
+ApplicantBuilder --* ApplicantEntity
+
+ConsoleLogger --* ApplicantEntity
+XmlLogger --* ApplicantEntity
+JsonLogger --* ApplicantEntity
+
+LoggerProviderFactory --* LoggingProvider
 @enduml
